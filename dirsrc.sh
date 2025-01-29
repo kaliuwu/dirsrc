@@ -1,10 +1,10 @@
 #!/bin/bash
 while true;
 do
-    clear
-    echo "left = back | right = go to _ | q = quit"
+    clear  
+    echo "left = back | right = go to | q = quit"
     echo "PATH: $(pwd)"
-    ls
+    tree -d -L 1
     read -n 1 -s  key
     echo
     case $key in
@@ -12,11 +12,12 @@ do
         read -n 2 -s key
         case $key in
             "[D")
-                echo "meow"
                 cd ..
                 ;;
             "[C")
-                read -p "DEST: " dest
+
+                deststr=$(tree -d -L 1 | fzf --bind 'right:accept' )
+                dest="${deststr#* }"
                 cd $dest
             esac
     ;;
